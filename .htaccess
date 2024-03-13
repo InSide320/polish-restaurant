@@ -1,0 +1,17 @@
+##Default charser for site content
+AddDefaultCharset utf-8
+
+RewriteEngine on
+RewriteRule ^([^.]+)$ $1.php [NC,L]
+
+##Remove extra slashes at the end
+RewriteCond %{THE_REQUEST} //
+RewriteRule .* /$0 [R=301,L]
+
+
+
+ErrorDocument 400 /errors/error.php
+ErrorDocument 401 /errors/error.php
+ErrorDocument 403 /errors/error.php
+ErrorDocument 404 /errors/error.php
+ErrorDocument 500 /errors/error.php

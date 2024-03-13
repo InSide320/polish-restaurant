@@ -1,0 +1,6 @@
+{
+  "require": {
+    "ext-mysqli": "*",
+    "phpmailer/phpmailer": "6.9.0"
+  }
+}
