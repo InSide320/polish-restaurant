@@ -38,8 +38,8 @@ if (isset($_POST["send"])) {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = ''; // your gmail
-    $mail->Password = ''; // your gmail pass
+    $mail->Username = 'dekud2109@gmail.com'; // your gmail
+    $mail->Password = 'xwbj jbnz poho gwng'; // your gmail pass
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port = 465;
     $mail->isHTML(true);

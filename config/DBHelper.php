@@ -147,6 +147,17 @@ class DBHelper
         return $result;
     }
 
+    public static function selectCategoryById($id): bool|array|null
+    {
+        $sql = "select * from categories where category_id = '$id'";
+        $stmt = mysqli_query(self::connectToDB(), $sql);
+
+        $result = $stmt->fetch_assoc();
+
+        $stmt->close();
+        return $result;
+    }
+
     public static function insertProductToDB(
         $productName, $categoryId, $description, $price, $photoContent): bool
     {

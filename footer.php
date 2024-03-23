@@ -15,8 +15,8 @@
 
         </div>
     </div>
-
 </footer>
+<script src="/assets/js/productPrice.js"></script>
 </div>
 </body>
 </html>
