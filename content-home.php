@@ -3,6 +3,8 @@
         <?php
         require_once './app/actions/productAction.php';
         require_once './config/DBHelper.php';
+        require_once('./app/actions/handleErrorMessage.php');
+
         $category = 0;
 
         require_once './parts/products.php' ?>

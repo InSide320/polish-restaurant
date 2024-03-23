@@ -5,7 +5,7 @@
             <h3>ZAREJESTRUJ SIĘ</h3>
             <div>
                 <label for="email">Adres e-mail<span style="color: #E01020;">*</span></label>
-                <input type="email" name="email" id="email">
+                <input class="input" type="email" name="email" id="email">
             </div>
             <p>
                 Na adres e-mail zostanie wysłany odnośnik do ustawienia nowego hasła.

@@ -142,7 +142,7 @@ label {
     gap: 5px;
 }
 
-input {
+.input {
     padding: 0 15px;
     max-width: 100%;
     width: 100%;
@@ -222,6 +222,7 @@ input {
     justify-content: center;
     gap: 10px;
     width: 100%;
+
     & .account-menu {
         display: flex;
         align-items: center;
@@ -237,7 +238,8 @@ input {
             gap: 10px;
             width: 100%;
             padding: 25px;
-            & li{
+
+            & li {
                 & button {
                     color: white;
                     background-color: #333;
@@ -251,6 +253,7 @@ input {
         }
 
     }
+
     & .wrap-account-information {
         background-color: rgb(238, 216, 184);
         width: 75%;
@@ -265,11 +268,57 @@ input {
     }
 }
 
+.wrap-account-information {
+    display: flex;
+    align-items: center;
+
+    .admin-information {
+        display: flex;
+        width: 100%;
+        height: auto;
+        padding: 25px;
+
+        & form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+            align-items: center;
+
+            & div {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                & label {
+                    color: #333;
+                }
+            }
+        }
+
+        & form .input {
+            width: 75%;
+            background-color: #333;
+        }
+
+        & form .upload-file {
+            width: 80%;
+            color: #333;
+        }
+    }
+}
 
 
 /*
 Authorization page
  */
+
+.product-image {
+    width: 350px;
+    height: 350px;
+    border-radius: 15%;
+}
 
 .menu-wrap-product {
     margin: 30px;
@@ -323,6 +372,121 @@ Authorization page
                     border-radius: 15px;
                 }
             }
+        }
+    }
+}
+
+.wrap-order {
+    background-color: rgb(238, 216, 184);
+    width: 75%;
+    min-height: 500px;
+    border-radius: 15px;
+    & form {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        padding: 50px;
+        color: #333;
+
+        & #total {
+            text-align: end;
+            font-weight: bold;
+        }
+
+        & .orders-list {
+            & li {
+                display: flex;
+                flex-direction: row;
+                gap: 15px;
+                align-items: center;
+                justify-content: space-between;
+
+                & .wrap-order-price {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                }
+
+                & .input{
+                    width: 75px;
+                    background-color: #333333;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+
+.wrap-product-order {
+    padding-inline: 50px;
+    padding-bottom: 10px;
+
+    & form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        color: rgb(238, 216, 184);
+
+        & .wrap-product-order-price {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            width: 100%;
+
+            & label, .price {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            & label {
+                min-width: 105px;
+            }
+
+            & .price {
+                width: auto;
+            }
+        }
+
+        & button {
+            padding-inline: 15px;
+        }
+    }
+}
+
+.wrap-product {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 25px;
+    padding-inline: 25px;
+    width: 100%;
+
+    & .wrap-product-image {
+        & .product-image {
+            width: 524px;
+            height: 524px;
+            border-radius: 15px;
+        }
+    }
+
+    & .product__description {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 25px;
+        width: 100%;
+        background-color: rgb(238, 216, 184);
+        border-radius: 15px;
+        color: #333;
+        word-break: break-all;
+        text-indent: 40px;
+
+        & .product-name {
+            text-align: center;
+            text-indent: 0;
         }
     }
 }

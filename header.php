@@ -21,7 +21,7 @@
                     <a href="/my-account.php">
                         <img src="/assets/img/icon-user.png" width="32" height="32" alt="">
                     </a>
-                    <a href="#">
+                    <a href="/cart/orders">
                         <img src="/assets/img/icon-shopping-bag.png" width="32" height="32" alt="">
                     </a>
                 </div>

@@ -8,7 +8,7 @@
                     Wyślemy w wiadomości email, odnośnik potrzebny do utworzenia nowego hasła.
                 </p>
                 <label for="email">Nazwa użytkownika lub adres e-mail<span style="color: #E01020;">*</span></label>
-                <input type="email" name="email" id="email">
+                <input class="input" type="email" name="email" id="email">
                 <button class="button" name="send" value="forgot-password" type="submit">ZRESETUJ HASŁO</button>
             </div>
         </form>

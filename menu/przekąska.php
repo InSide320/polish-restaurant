@@ -6,6 +6,7 @@ require './../header.php'; ?>
         <?php
         require_once './../app/actions/productAction.php';
         require_once './../config/DBHelper.php';
+        require_once('./../app/actions/handleErrorMessage.php');
 
         $category = 1;
 
