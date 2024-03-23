@@ -18,10 +18,9 @@ if (isset($data['send'])) {
         flash("Product was added");
     } else {
         flash("Помилка при збереженні продукту");
-
     }
+    header("Location: /admin-menu/add-new-product");
 } else {
     flash("Something was wrong!");
 }
 
-header("Location: /admin-menu/add-new-product");
