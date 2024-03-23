@@ -8,10 +8,13 @@ RewriteRule ^([^.]+)$ $1.php [NC,L]
 RewriteCond %{THE_REQUEST} //
 RewriteRule .* /$0 [R=301,L]
 
-
-
 ErrorDocument 400 /errors/error.php
 ErrorDocument 401 /errors/error.php
 ErrorDocument 403 /errors/error.php
 ErrorDocument 404 /errors/error.php
 ErrorDocument 500 /errors/error.php
+
+<IfModule mod_php4.c>
+ php_value session.auto_start 0
+ php_value display_errors = off
+</IfModule>
