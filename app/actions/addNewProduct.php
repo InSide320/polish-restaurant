@@ -6,8 +6,6 @@ include_once './productAction.php';
 include_once 'handleErrorMessage.php';
 
 if (isset($data['send'])) {
-    var_dump($data);
-
     $productName = $data['product-name'];
     $categoryId = $data['id_category'];
     $description = $data['description'];
