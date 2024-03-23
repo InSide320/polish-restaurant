@@ -13,7 +13,7 @@ include_once './../app/actions/productAction.php';
 //                    $_SESSION['order'] = null;
                 $arr = $_SESSION['order'];
                 ?>
-                <form>
+                <form class="order-form" method="get">
                     <h1>Cart</h1>
                     <ul class="orders-list">
                         <?php
@@ -21,7 +21,6 @@ include_once './../app/actions/productAction.php';
                             $getProduct = getProductById($item['id']);
                             ?>
                             <li>
-<!--                                <button>Remove --><?php //array_search() ?><!--</button>-->
                                 <img src="<?= outputPhoto($getProduct['photo']) ?>" width="50" height="50"
                                      alt="product">
                                 <span><?= $item['name'] ?></span>
@@ -61,11 +60,21 @@ include_once './../app/actions/productAction.php';
                     </span>
                         zł
                 </span>
-
-                    <button class="button" style="width: 100px;" type="submit">Submit</button>
+                    <div class="wrap-button-order">
+                        <button class="button" type="submit">Submit</button>
+                    </div>
                 </form>
-            <?php } else {
-                echo "Set order, pls";
+                <form class="remove-item-from-order" method="post" action="removeItemFromOrder.php">
+                    <button type="submit" name="remove-all-products" class="button">
+                        Remove all product
+                    </button>
+                </form>
+            <?php } else { ?>
+                <div class="wrap-empty-order">
+                    <span>Set order, pls</span>
+                    <button class="button" id="redirectToShop">Go to shop</button>
+                </div>
+                <?php
             }
             ?>
         </div>

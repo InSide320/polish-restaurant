@@ -377,18 +377,45 @@ Authorization page
 }
 
 .wrap-order {
-    background-color: rgb(238, 216, 184);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    padding: 35px;
     width: 75%;
     min-height: 500px;
     border-radius: 15px;
-    & form {
+    background-color: rgb(238, 216, 184);
+
+    & .button {
+        width: max-content;
+        padding-inline: 30px;
+    }
+
+    & .remove-item-from-order {
+        width: 100%;
+        text-align: start;
+    }
+
+    & .order-form {
         display: flex;
         flex-direction: column;
+        align-items: stretch;
         gap: 25px;
-        padding: 50px;
+        width: 100%;
         color: #333;
 
+        & .wrap-button-order {
+            width: 100%;
+            text-align: end;
+
+            & .button {
+                font-size: medium;
+            }
+        }
+
         & #total {
+            width: 100%;
             text-align: end;
             font-weight: bold;
         }
@@ -407,12 +434,27 @@ Authorization page
                     gap: 10px;
                 }
 
-                & .input{
+                & .input {
                     width: 75px;
                     background-color: #333333;
                     color: white;
                 }
             }
+        }
+    }
+
+    & .wrap-empty-order{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+
+        & span {
+            color: #333333;
+        }
+
+        & .button {
+            font-size: medium;
         }
     }
 }

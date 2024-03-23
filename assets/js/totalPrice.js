@@ -15,5 +15,10 @@ window.addEventListener("load", () => {
 
         totalPrice = null;
     });
+
+    document.getElementById('redirectToShop').addEventListener("click", () => {
+        window.location.href = window.location.origin;
+    });
+
 });
 

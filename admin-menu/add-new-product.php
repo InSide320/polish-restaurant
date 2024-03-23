@@ -19,17 +19,17 @@
                     </div>
                     <div>
                         <label for="create-product-description">Description:</label>
-                        <input class="input" type="text" id="create-product-description" name="description">
+                        <input class="input" type="text" id="create-product-description" name="description" required>
                     </div>
                     <div>
                         <label for="create-product-price">Price:</label>
-                        <input class="input" type="number" id="create-product-price" name="price" step="any">
+                        <input class="input" type="number" id="create-product-price" name="price" step="any" required>
                     </div>
 
                     <div>
                         <label for="create-product-photo">Photo:</label>
                         <input class="upload-file" type="file" id="create-product-photo" name="photo"
-                               accept="image/png, image/jpeg">
+                               accept="image/png, image/jpeg" required>
                     </div>
                     <button class="button" name="send" style="background-color: #333; color: white; width: 150px;"
                             type="submit">Add
