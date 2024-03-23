@@ -1,6 +1,9 @@
 <?php include_once './../header.php'; ?>
 <section class="main-section mw-1320">
     <h2>Moje konto</h2>
+    <?php
+    include_once './../app/actions/handleErrorMessage.php';
+    flash(); ?>
     <div class="wrap-my-account">
         <?php include './parts/adminMenuPart.php' ?>
         <div class="wrap-account-information">

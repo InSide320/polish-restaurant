@@ -3,6 +3,7 @@
 $data = $_POST;
 include_once './../../config/DBHelper.php';
 include_once './productAction.php';
+include_once 'handleErrorMessage.php';
 
 if (isset($data['send'])) {
     var_dump($data);
@@ -13,13 +14,14 @@ if (isset($data['send'])) {
     $price = $data['price'];
     $photoContent = addslashes(file_get_contents($_FILES['photo']['tmp_name']));
 
-    var_dump($data);
-
     if (validateAndInsertProduct($productName, $categoryId, $description, $price, $photoContent)) {
-        var_dump("Продукт успішно збережено.");
+        flash("Product was added");
     } else {
-        var_dump("Помилка при збереженні продукту.");
+        flash("Помилка при збереженні продукту");
+
     }
 } else {
-    var_dump("Something was wrong!");
+    flash("Something was wrong!");
 }
+
+header("Location: /admin-menu/add-new-product");
