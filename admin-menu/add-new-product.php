@@ -15,15 +15,17 @@
                     </div>
                     <div>
                         <label for="create-product-category">Category:</label>
-                        <input class="input" type="number" id="create-product-category" name="id_category" required>
+                        <input class="input" type="number" id="create-product-category"
+                               name="id_category" min="1" max="5" value="1" required>
                     </div>
                     <div>
                         <label for="create-product-description">Description:</label>
-                        <input class="input" type="text" id="create-product-description" name="description" required>
+                        <input class="input" type="text" id="create-product-descriptio" name="description" required>
                     </div>
                     <div>
                         <label for="create-product-price">Price:</label>
-                        <input class="input" type="number" id="create-product-price" name="price" step="any" required>
+                        <input class="input" type="number" value="0.00" min="0" id="create-product-price" name="price"
+                               step="any" required>
                     </div>
 
                     <div>
