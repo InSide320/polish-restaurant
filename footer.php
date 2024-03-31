@@ -6,7 +6,7 @@
         </div>
         <div class="footer__cool">
             <h3>Menu</h3>
-            <?php require 'parts/main-menu.php' ?>
+            <?php require 'parts/menuOnFooter.php' ?>
         </div>
         <div class="footer__cool">
 

@@ -8,36 +8,41 @@ include_once './../app/actions/productAction.php';
         <div class="wrap-order">
             <?php
             $array = [];
-
-            if ($_SESSION['order'] !== null) {
-//                    $_SESSION['order'] = null;
+            if (isset($_SESSION['order'])) {
                 $arr = $_SESSION['order'];
                 ?>
-                <form class="order-form" method="get">
+                <form class="order-form" method="post" action="../app/actions/addPersonalInformationToOrder.php">
                     <h1>Cart</h1>
                     <ul class="orders-list">
                         <?php
-                        foreach ($arr as $item) :
-                            $getProduct = getProductById($item['id']);
+
+                        for ($i = 0, $iMax = count($arr); $i < $iMax; $i++) :
+                            $getProduct = getProductById($arr[$i]['id']);
                             ?>
                             <li>
+                                <input type="hidden" name="product-id_<?= $i ?>"
+                                       value="
+                                       <?= $getProduct['product_id']; ?>">
+
                                 <img src="<?= outputPhoto($getProduct['photo']) ?>" width="50" height="50"
                                      alt="product">
-                                <span><?= $item['name'] ?></span>
+                                <span><?= $arr[$i]['name'] ?></span>
                                 <span><?= getCategoryById($getProduct['category_id'])['category_name'] ?></span>
                                 <div class="wrap-order-price">
                                     <label for="count">count:</label>
-                                    <input class="input" id="count" name="number" type="number"
-                                           value="<?= $item['count'] ?>" min="1" max="10">
+                                    <input class="input" id="count" name="count_<?= $i ?>" type="number"
+                                           value="<?php echo $arr[$i]['count']; ?>" min="1" max="10">
+
                                     <input type="hidden" class="price-product" value="<?= $getProduct['price'] ?>">
+
                                     <span class="price">
-                                        <?= number_format($getProduct['price'] * $item['count'], 2, '.', '') ?>
+                                        <?= number_format($getProduct['price'] * $arr[$i]['count'], 2, '.', '') ?>
                                         zł
                                     </span>
                                 </div>
                             </li>
                         <?php
-                        endforeach;
+                        endfor;
                         ?>
                     </ul>
                     <span id="total">Total price:
@@ -48,20 +53,15 @@ include_once './../app/actions/productAction.php';
                             $totalPrice += (double)$getProduct['price'] * $item['count'];
                         }
                         $totalPrice = number_format($totalPrice, 2, '.', '');
-                        //                                                echo $totalPrice;
                         ?>
-                            <input
-                                    type="hidden"
-                                    id="total-price"
-                                    value="<?= $totalPrice ?>"
-                            >
-                    <span id="total-prices">
-                        <?= $totalPrice ?>
+                        <span id="total-prices">
+                            <?= $totalPrice ?>
+                        </span>
+                            zł
                     </span>
-                        zł
-                </span>
+
                     <div class="wrap-button-order">
-                        <button class="button" type="submit">Submit</button>
+                        <button class="button" type="submit" name="send">Submit</button>
                     </div>
                 </form>
                 <form class="remove-item-from-order" method="post" action="removeItemFromOrder.php">

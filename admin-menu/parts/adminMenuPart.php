@@ -11,8 +11,13 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="./manage-products">
                 <button class="button">Manage products</button>
+            </a>
+        </li>
+        <li>
+            <a href="./manage-orders">
+                <button class="button">Manage orders</button>
             </a>
         </li>
         <li>

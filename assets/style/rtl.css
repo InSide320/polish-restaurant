@@ -1,0 +1,92 @@
+/* Для пристроїв з шириною екрана менше 768 пікселів (наприклад, смартфони портретної орієнтації) */
+@media only screen and (max-width: 767px) {
+
+}
+
+/* Для пристроїв з шириною екрана від 768 пікселів до 991 піксела (наприклад, смартфони ландшафтної орієнтації та планшети) */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+
+}
+
+/* Для пристроїв з шириною екрана від 992 пікселів до 1199 пікселів (наприклад, планшети та невеликі настільні монітори) */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+@media only screen and (max-width: 1199px) {
+    nav {
+
+        & .burger-menu {
+            justify-content: space-between;
+        }
+    }
+
+    .nav-container .hamburger-lines {
+        display: flex;
+    }
+
+    #main-menu {
+        width: 0;
+        height: 100vh;
+        display: flex;
+        position: fixed;
+        flex-direction: column;
+        justify-content: flex-start;
+        background: rgb(238, 216, 184);
+        top: 0;
+        left: 0;
+        transition: all 0.3s ease-out;
+        padding: 0;
+
+        & li {
+            width: 0;
+            background-color: rgb(204, 184, 153);
+            border-radius: 10px;
+            height: 35px;
+            padding: 15px;
+            align-items: center;
+            display: none;
+
+            a {
+                width: 0;
+            }
+
+            &:hover {
+                background-color: rgb(255, 230, 204);
+            }
+        }
+    }
+
+    .burger-menu input[type="checkbox"]:checked ~ #main-menu {
+        width: 30%;
+        padding: 75px 10px;
+
+
+        & li {
+            display: flex;
+            width: 100%;
+            a {
+                width: 100%;
+            }
+        }
+
+    }
+
+    .nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line1 {
+        top: 10px;
+        transform: rotate(45deg);
+    }
+
+    .nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line2 {
+        transform: scaleY(0);
+    }
+
+    .nav-container input[type="checkbox"]:checked ~ .hamburger-lines .line3 {
+        top: -8px;
+        transform: rotate(-45deg);
+    }
+
+    .nav-container input[type="checkbox"]:checked ~ .logo {
+        /*display: none;*/
+    }
+}

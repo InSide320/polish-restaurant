@@ -5,6 +5,31 @@ function getAllProducts(): false|array|null
     return DBHelper::selectAllProducts();
 }
 
+function getAllProductsPaginated($offset, $limit): ?array
+{
+    return DBHelper::selectAllProductsPaginated($offset, $limit);
+}
+
+function countAllProducts()
+{
+    return DBHelper::countAllProductsIntoDB();
+}
+
+function removeProductById($productId): ?bool
+{
+    return DBHelper::deleteProductById($productId);
+}
+
+function getAllCategories(): array
+{
+    return DBHelper::selectAllCategories();
+}
+
+function changeProductPhotoById($productId, $photo): ?bool
+{
+    return DBHelper::updateProductPhotoById($productId, $photo);
+}
+
 function getProductById($id): array
 {
     return DBHelper::selectProductById($id);
@@ -33,5 +58,5 @@ function isValidProductData($productName, $categoryId, $description, $price, $ph
 
 function outputPhoto($photo): string
 {
-    return "data:image/jpeg;base64,".base64_encode($photo);
+    return "data:image/jpeg;base64," . base64_encode($photo);
 }

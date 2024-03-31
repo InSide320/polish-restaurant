@@ -58,3 +58,18 @@ function saveUserToDB($username, $email, $password): void
     DBHelper::insertUserToDB($username, $email, $hash_pass);
 }
 
+function setAdditionalInfUserById($id, $fullName, $phone, $city, $address): bool
+{
+    $userAdd = DBHelper::insertAdditionalInformationByIdToDB($id, $fullName, $phone, $city, $address);
+    if ($userAdd) {
+        $_SESSION['fullName'] = $fullName;
+        $_SESSION['phone'] = $phone;
+        $_SESSION['city'] = $city;
+        $_SESSION['address'] = $address;
+        return true;
+    } else {
+        return false;
+    }
+
+}
+
