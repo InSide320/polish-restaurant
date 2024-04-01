@@ -60,3 +60,18 @@ function outputPhoto($photo): string
 {
     return "data:image/jpeg;base64," . base64_encode($photo);
 }
+
+function changeProductMainDetails($productName, $categoryId, $price, $productId): bool
+{
+    return DBHelper::updateProductMainDetails($productName, $categoryId, $price, $productId);
+}
+
+function changeProductFlags($isNew, $isPopular, $productId): bool
+{
+    return DBHelper::updateProductFlags($isNew, $isPopular, $productId);
+}
+
+function changeProductInfo($description, $methodPreparing, $ingredients, $productId): bool
+{
+    return DBHelper::updateProductInfo($description, $methodPreparing, $ingredients, $productId);
+}

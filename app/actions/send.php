@@ -9,17 +9,13 @@ require_once 'getUrl.php';
 require_once './../../config/DBHelper.php';
 include_once 'handleErrorMessage.php';
 
-use DBHelper as DataBase;
-
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 use Random\RandomException;
 
-
-if (isset($_POST["send"])) {
-
+function configureMailer($subject, $body): PHPMailer
+{
     $mail = new PHPMailer(true);
     $mail->SMTPDebug = SMTP::DEBUG_OFF;
 
@@ -43,19 +39,22 @@ if (isset($_POST["send"])) {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port = 465;
     $mail->isHTML(true);
-
+    $mail->Subject = $subject;
+    $mail->Body = $body;
+    $mail->CharSet = 'utf8mb4';
 
     try {
         $mail->setFrom('dekud2109@gmail.com'); // your gmail
-        $mail->addAddress($_POST["email"]);
-        $mail->addEmbeddedImage('./../../assets/img/logo.png', 'logo', 'logo.png');
     } catch (Exception $e) {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 
-    $sendUrl = url();
-    $mail->CharSet = 'utf8mb4';
+    return $mail;
+}
 
+if (isset($_POST["send"])) {
+
+    $sendUrl = url();
     $userExists = DBHelper::userExistsWithEmail($_POST['email']);
 
     if ($_POST['send'] === 'registration') {
@@ -68,13 +67,11 @@ if (isset($_POST["send"])) {
                 } catch (RandomException $e) {
                     echo $e->getMessage();
                 }
-                $mail->Subject = "Registration was successful";
-                $mail->Body =
-                    "
+
+                $mail = configureMailer("Registration was successful", "
                     <div class='mail-message'>
                         <div class='wrap-mail-message'>
-                            <a href=$sendUrl><img src=cid:logo width='200px'
-                                                           height='100px' alt='logo'></a>
+                            <a href=$sendUrl><img src=cid:logo width='200px' height='100px' alt='logo'></a>
                             <div class='mail-body'>
                                 <p>Oto Twoje dane, zapisz je:</p>
                                 <p>Nazwa użytkownika:
@@ -85,10 +82,13 @@ if (isset($_POST["send"])) {
                                 </p>
                                 <p>aby wejść na stronę: <a href=$sendUrl>Link</a></p>
                             </div>
-                            
-                            </div>
                         </div>
-                        ";
+                    </div>
+                ");
+
+                $mail->addAddress($_POST["email"]);
+                $mail->addEmbeddedImage('./../../assets/img/logo.png', 'logo', 'logo.png');
+
                 saveUserToDB($username, $_POST["email"], $pass_generated);
                 $mail->send();
             } catch (Exception $e) {
@@ -107,23 +107,25 @@ if (isset($_POST["send"])) {
                 echo $e->getMessage();
             }
             $changePasswordUrl = $sendUrl . '/password-recovery?key=' . $key;
-            $mail->Subject = "Odzyskaj hasło";
-            $mail->Body =
-                "<div class='mail-message'>
-                <div class='wrap-mail-message'>
-                    <a href=$sendUrl>
-                        <img src=cid:logo width='200px' height='100px' alt='logo'>
-                    </a>
-                    <div class='mail-body'>
-                        <p>Witaj <b>$userExists[email]</b>, tutaj jest link do zmiany hasła: 
-                            <b>
-                                <a href=$changePasswordUrl>$changePasswordUrl</a>
-                            </b>
-                        </p>
+
+            $mail = configureMailer("Odzyskaj hasło", "
+                <div class='mail-message'>
+                    <div class='wrap-mail-message'>
+                        <a href=$sendUrl>
+                            <img src=cid:logo width='200px' height='100px' alt='logo'>
+                        </a>
+                        <div class='mail-body'>
+                            <p>Witaj <b>$userExists[email]</b>, tutaj jest link do zmiany hasła: 
+                                <b><a href=$changePasswordUrl>$changePasswordUrl</a></b>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>";
+            ");
+
             try {
+                $mail->addAddress($userExists['email']);
+                $mail->addEmbeddedImage('./../../assets/img/logo.png', 'logo', 'logo.png');
                 $mail->send();
                 DBHelper::updateUserChangeKey($userExists['email'], $key);
             } catch (Exception $e) {

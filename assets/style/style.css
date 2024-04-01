@@ -98,6 +98,12 @@ table {
     }
 }
 
+.product-change-main-info {
+    & .button{
+        width: 100px;
+    }
+}
+
 .account-information {
     & .input {
         background-color: #333333;
@@ -114,6 +120,28 @@ table {
         display: flex;
         flex-direction: row;
         align-items: center;
+    }
+
+    & .change-product-flag {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        & fieldset {
+            display: flex;
+            flex-direction: row;
+            gap: 50px;
+        }
+
+        & .wrap-radio-product-flag {
+            display: flex;
+            flex-direction: row;
+            gap: 25px;
+        }
+
+        & .button {
+            width: 125px;
+        }
     }
 }
 
@@ -272,6 +300,12 @@ Authorization page
     font-size: 26px;
     font-weight: bold;
     color: rgb(204, 0, 98);
+    border-bottom: 3px solid;
+}
+
+.form-change-product {
+    padding: 15px;
+    border: 3px solid;
 }
 
 label {
