@@ -10,7 +10,7 @@ window.addEventListener("load", () => {
                 totalPrice += price;
             }
         }
-        document.getElementById("total-price").value = totalPrice.toFixed(2);
+        document.getElementById("total-prices").value = totalPrice.toFixed(2);
         document.getElementById("total-prices").innerHTML = totalPrice.toFixed(2);
 
         totalPrice = null;

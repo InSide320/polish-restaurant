@@ -18,11 +18,11 @@ flash();
                     <div class="product__description">
                         <div class="productSticker__flag">
                             <div class="productSticker-flag__item">
-                                Popular
+                                <?= $product['is_new'] ? "New" : ($product['is_popular'] ? "Popular" : "") ?>
                             </div>
                         </div>
                         <p><?= $product['product_name'] ?></p>
-                        <p><?= $product['price'] ?></p>
+                        <p><?= $product['price'] ?> zł</p>
                     </div>
                 </a>
             </li>

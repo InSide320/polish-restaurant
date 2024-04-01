@@ -45,4 +45,3 @@ function changeOrderStatus($orderId, $newStatus): bool
     $statusId = DBHelper::selectOrderStatusByName($newStatus);
     return DBHelper::updateOrderStatus($orderId, $statusId['status_id']);
 }
-

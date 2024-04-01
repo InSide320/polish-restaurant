@@ -286,6 +286,87 @@ class DBHelper
         return $stmt;
     }
 
+    public static function updateProductInfo($description, $methodPreparing, $ingredients, $productId): bool
+    {
+        // Підготовлений SQL запит з плейсхолдерами
+        $sql = "UPDATE Products
+            SET description = ?, method_preparing = ?, ingredients = ?
+            WHERE product_id = ?";
+
+        // Підготовка запиту
+        $stmt = self::connectToDB()->prepare($sql);
+
+        // Перевірка наявності помилок у підготовці запиту
+        if ($stmt === false) {
+            return false;
+        }
+
+        // Прив'язка параметрів до плейсхолдерів та їх типів
+        $stmt->bind_param("sssi", $description, $methodPreparing, $ingredients, $productId);
+
+        // Виконання запиту
+        $result = $stmt->execute();
+
+        // Закриття запиту
+        $stmt->close();
+
+        return $result;
+    }
+
+    public static function updateProductFlags($isNew, $isPopular, $productId): bool
+    {
+        // Підготовлений SQL запит з плейсхолдерами
+        $sql = "UPDATE Products
+            SET is_new = ?, is_popular = ?
+            WHERE product_id = ?";
+
+        // Підготовка запиту
+        $stmt = self::connectToDB()->prepare($sql);
+
+        // Перевірка наявності помилок у підготовці запиту
+        if ($stmt === false) {
+            return false;
+        }
+
+        // Прив'язка параметрів до плейсхолдерів та їх типів
+        $stmt->bind_param("iii", $isNew, $isPopular, $productId);
+
+        // Виконання запиту
+        $result = $stmt->execute();
+
+        // Закриття запиту
+        $stmt->close();
+
+        return $result;
+    }
+
+    public static function updateProductMainDetails($name, $category, $price, $productId): bool
+    {
+        // Підготовлений SQL запит з плейсхолдерами
+        $sql = "UPDATE Products
+            SET product_name = ?, category_id = ?, price = ?
+            WHERE product_id = ?";
+
+        // Підготовка запиту
+        $stmt = self::connectToDB()->prepare($sql);
+
+        // Перевірка наявності помилок у підготовці запиту
+        if ($stmt === false) {
+            return false;
+        }
+
+        // Прив'язка параметрів до плейсхолдерів та їх типів
+        $stmt->bind_param("sidi", $name, $category, $price, $productId);
+
+        // Виконання запиту
+        $result = $stmt->execute();
+
+        // Закриття запиту
+        $stmt->close();
+
+        return $result;
+    }
+
     public static function deleteProductById($productId)
     {
         // Підготовлений SQL запит з плейсхолдером
