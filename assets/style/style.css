@@ -23,7 +23,7 @@ body {
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-between;
+
     gap: 25px;
     min-height: 100vh;
     background-color: #1a1a1a;
@@ -99,7 +99,7 @@ table {
 }
 
 .product-change-main-info {
-    & .button{
+    & .button {
         width: 100px;
     }
 }
@@ -152,6 +152,11 @@ table {
 .pagination {
     & a {
         padding: 10px;
+    }
+
+    & .active {
+        background-color: #333333;
+        color: white;
     }
 }
 
@@ -275,6 +280,47 @@ nav {
     transition: transform 0.4s ease-in-out;
 }
 
+.wrap-header-order-card {
+    display: flex;
+    width: 25px;
+    height: 25px;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: medium;
+    background-color: #333333;
+    border-radius: 50%;
+    color: white;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+        background-color: rgb(204, 184, 153);
+        color: #333333;
+    }
+}
+
+.wrap-breadcrumbs {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    height: 50px;
+    align-items: center;
+    padding-left: 150px;
+    border-bottom: 3px solid #333333;
+    border-top: 3px solid #333333;
+    text-transform: uppercase;
+    color: rgb(204, 184, 153);
+
+    & a {
+        color: rgb(204, 184, 153);
+        text-decoration: underline;
+
+        &:hover {
+            color: rgb(170, 152, 122);
+        }
+    }
+}
+
 
 /*
     MENU
@@ -285,6 +331,7 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: auto;
     height: auto;
     width: 100%;
     color: white;
@@ -300,6 +347,8 @@ Authorization page
     font-size: 26px;
     font-weight: bold;
     color: rgb(204, 0, 98);
+    border-bottom: 3px solid;
+    text-transform: uppercase;
     border-bottom: 3px solid;
 }
 
@@ -411,10 +460,29 @@ label {
             padding: 25px;
 
             & li {
+                & .active {
+                    background-color: rgb(170, 136, 85);
+                }
+
                 & button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 5px;
                     color: white;
                     background-color: #333;
                     width: 100%;
+
+                    & .orders-length {
+                        display: flex;
+                        width: 20px;
+                        height: 20px;
+                        border-radius: 15px;
+                        background-color: rgb(238, 216, 184);
+                        color: #333333;
+                        align-items: center;
+                        justify-content: center;
+                    }
 
                     &:hover {
                         background-color: rgb(162, 21, 89);
@@ -525,6 +593,7 @@ Authorization page
 
             & .product__description {
                 padding-left: 35px;
+                font-weight: bold;
             }
 
 
@@ -557,6 +626,27 @@ Authorization page
                 }
             }
         }
+    }
+}
+
+.form-filter {
+    display: flex;
+    width: 350px;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+
+    & label {
+        font-weight: bold;
+        width: 150px;
+    }
+
+    & .button {
+        padding-inline: 10px;
+    }
+
+    & option {
+        color: black;
     }
 }
 
@@ -695,6 +785,16 @@ Authorization page
     width: 100%;
 
     & .wrap-product-image {
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+
+        & h1 {
+            border-bottom: 1px solid silver;
+            text-align: center;
+            color: rgb(238, 216, 184);
+        }
+
         & .product-image {
             width: 524px;
             height: 524px;
@@ -713,6 +813,23 @@ Authorization page
         color: #333;
         word-break: break-all;
         text-indent: 40px;
+
+        & .productSticker__flag {
+            & .productSticker-flag__item {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: max-content;
+                padding: 15px;
+                height: 50px;
+                background-color: #333333;
+                border-radius: 10px;
+                font-weight: bold;
+                text-indent: 0;
+                color: white;
+                text-transform: uppercase;
+            }
+        }
 
         & .product-name {
             text-align: center;

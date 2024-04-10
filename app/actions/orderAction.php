@@ -45,3 +45,23 @@ function changeOrderStatus($orderId, $newStatus): bool
     $statusId = DBHelper::selectOrderStatusByName($newStatus);
     return DBHelper::updateOrderStatus($orderId, $statusId['status_id']);
 }
+
+function selectAllOrdersPagination($offset, $limit): array
+{
+    return DBHelper::getAllOrdersPagination($offset, $limit);
+}
+
+function selectTotalOrdersCount()
+{
+    return DBHelper::getTotalOrdersCount();
+}
+
+function selectAllOrdersPaginationByCategoryId($offset, $limit, $categoryId): array
+{
+    return DBHelper::getAllOrdersPaginationByCategoryId($offset, $limit, $categoryId);
+}
+
+function selectTotalOrdersCountByCategoryId($categoryId)
+{
+    return DBHelper::getTotalOrdersCountByCategoryId($categoryId);
+}

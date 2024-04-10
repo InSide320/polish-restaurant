@@ -61,7 +61,7 @@
                             <td>
                                 <form method="get" action="./edit-product.php">
                                     <input type="hidden" name="product-id" value="<?= $item['product_id'] ?>">
-                                    <button class="button" name="send" type="submit">Edit product</button>
+                                    <button class="button" name="send" type="submit">Edit</button>
                                 </form>
                             </td>
                         </tr>
@@ -75,10 +75,15 @@
                 // Відображення посилань на інші сторінки
                 $total_records = countAllProducts();
                 $total_pages = ceil($total_records / $records_per_page);
+                include "./../app/actions/getUrl.php";
+                $parseUrl = parse_url(getFullURL(), PHP_URL_QUERY);
+                $isFirstPage = $parseUrl === null ? 'active' : '';
+                $activePageId = $isFirstPage === '' ? explode('=', $parseUrl)[1] : '';
 
                 echo "<div class='pagination'>";
                 for ($i = 1; $i <= $total_pages; $i++) {
-                    echo "<a class='button' href='?page=$i'>$i</a> ";
+                    $buttonClass = ($isFirstPage !== '' && $i === 1) || ((int)$activePageId === $i) ? ' active' : '';
+                    echo "<a class='button$buttonClass' href='?page=$i'>$i</a> ";
                 }
                 echo "</div>";
                 ?>

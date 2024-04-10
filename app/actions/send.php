@@ -46,7 +46,7 @@ function configureMailer($subject, $body): PHPMailer
     try {
         $mail->setFrom('dekud2109@gmail.com'); // your gmail
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        flash("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
     }
 
     return $mail;
@@ -92,7 +92,7 @@ if (isset($_POST["send"])) {
                 saveUserToDB($username, $_POST["email"], $pass_generated);
                 $mail->send();
             } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                flash("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
             }
             flash('Sent Successful');
         } else {
@@ -129,12 +129,14 @@ if (isset($_POST["send"])) {
                 $mail->send();
                 DBHelper::updateUserChangeKey($userExists['email'], $key);
             } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                flash("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
             }
             flash('Sent Successful');
         } else {
             flash('This user not created');
         }
+    } elseif ($_POST['send'] === 'order') {
+        header("Location: /");
     }
     include './../../my-account.php';
 }

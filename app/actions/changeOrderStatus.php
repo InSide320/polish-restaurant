@@ -13,5 +13,5 @@ if (isset($data['send'])) {
     } else {
         flash("Something is wrong with the update status with order №: $id");
     }
-    header('Location: /admin-menu/manage-orders');
+    header('Location: /manager-menu/manager-panel');
 }

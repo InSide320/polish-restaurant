@@ -9,7 +9,7 @@ $data = $_GET;
     <h2>Moje konto</h2>
     <div class="wrap-my-account">
         <?php
-        include_once 'parts/adminMenuPart.php';
+        include_once 'parts/managerMenuPart.php';
         include_once './../app/actions/orderAction.php';
         include_once './../app/actions/productAction.php';
         include_once './../config/DBHelper.php';

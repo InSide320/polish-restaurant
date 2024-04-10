@@ -3,7 +3,7 @@
     <h2>Moje konto</h2>
     <div class="wrap-my-account">
         <?php $username = $_SESSION["username"]; ?>
-        <?php include_once 'parts/adminMenuPart.php';
+        <?php include_once 'parts/managerMenuPart.php';
         include_once './../app/actions/orderAction.php';
         include_once './../app/actions/productAction.php';
         include_once './../app/actions/handleErrorMessage.php';
@@ -13,7 +13,26 @@
             <div class="account-information">
                 <?php
                 flash();
-                $orders = getAllOrders();
+
+                // Пагінація
+                $page = isset($_GET['page']) ? $_GET['page'] : 1;
+                $results_per_page = 10; // Кількість результатів на сторінці
+                $offset = ($page - 1) * $results_per_page;
+
+                $orderStatusNew = getStatusByOrderStatusId(5);
+
+                $orders =
+                    selectAllOrdersPaginationByCategoryId(
+                        $offset,
+                        $results_per_page,
+                        $orderStatusNew['status_id']
+                    );
+                $total_pages =
+                    ceil(selectTotalOrdersCountByCategoryId(
+                            $orderStatusNew['status_id']) / $results_per_page
+                    );
+
+
                 ?>
                 <table>
                     <thead>
@@ -29,6 +48,7 @@
                     <tbody>
                     <?php
                     foreach ($orders as $order):
+                        $orderStatusNew = getStatusByOrderStatusId($order['order_status_id'])['status_name'];
                         $ordersDetails = getOrderDetailsById($order['id']); ?>
                         <tr>
                             <td>
@@ -52,19 +72,24 @@
                             </td>
                             <td><?= $order['total_amount'] ?></td>
                             <td id="status-order">
-                                <?= getStatusByOrderStatusId($order['order_status_id'])['status_name'] ?>
+                                <?= $orderStatusNew ?>
                             </td>
                             <td>
-                                <form method="get" action="./change-order.php">
+                                <form method="get" action="change-order.php">
                                     <input type="hidden" name="order-id" value="<?= $order['id'] ?>">
-                                    <button class="button" name="send" type="submit">Get full info</button>
+                                    <button class="button" name="send" type="submit">Info</button>
                                 </form>
                             </td>
                         </tr>
-                    <?php
-                    endforeach; ?>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
+                <!-- Пагінація -->
+                <div class="pagination">
+                    <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                        <a class="button <?= $i == $page ? 'active' : '' ?>" href="?page=<?= $i ?>"><?= $i ?></a>
+                    <?php endfor; ?>
+                </div>
             </div>
         </div>
     </div>

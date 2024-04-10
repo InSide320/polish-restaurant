@@ -6,12 +6,12 @@
             <h3>LOGOWANIE</h3>
             <div>
                 <label for="email">Adres e-mail<span style="color: #E01020;">*</span></label>
-                <input class="input" type="email" name="email" id="email" required>
+                <input class="input" type="email" name="email" id="email" placeholder="Your email" required>
             </div>
 
             <div>
                 <label for="password">Hasło<span style="color: #E01020;">*</span></label>
-                <input class="input" type="password" name="password" id="password" required>
+                <input class="input" type="password" name="password" id="password" placeholder="Your password" required>
             </div>
 
             <button class="button" type="submit">Zalogować się</button>

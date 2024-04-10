@@ -10,21 +10,21 @@ $product = getProductById($idProduct); ?>
 <section class="main-section mw-1320">
     <div class="wrap-product">
         <div class="wrap-product-image">
+            <h1><?= $product['product_name'] ?></h1>
             <img class="product-image" loading="lazy" width="524"
-                 height="524" alt="img" src="<?=outputPhoto($product['photo']) ?>"/>
+                 height="524" alt="img" src="<?= outputPhoto($product['photo']) ?>"/>
 
             <?php include './addOrder.php' ?>
         </div>
         <div class="product__description">
             <div class="productSticker__flag">
-                <div class="productSticker-flag__item">
-                    <?php
-                    if ((bool)$product['is_popular'] === true): echo 'popular';
-                    elseif ((bool)$product['is_new'] === true) : echo 'new';
-                    else: echo '';
-                    endif;
-                    ?>
-                </div>
+                <?php
+                if ((bool)$product['is_popular'] === true): echo "<div class=productSticker-flag__item>popular</div>";
+                elseif ((bool)$product['is_new'] === true) : echo "<div class=productSticker-flag__item>new</div>";
+                else: echo '';
+                endif;
+                ?>
+
             </div>
             <p class="product-name"><b><?= $product['product_name'] ?></b></p>
             <p><?= $product['description'] ?></p>

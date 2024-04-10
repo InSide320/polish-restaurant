@@ -5,7 +5,7 @@
             <h3>ZAREJESTRUJ SIĘ</h3>
             <div>
                 <label for="email">Adres e-mail<span style="color: #E01020;">*</span></label>
-                <input class="input" type="email" name="email" id="email">
+                <input class="input" type="email" name="email" id="email" placeholder="Your email" required>
             </div>
             <p>
                 Na adres e-mail zostanie wysłany odnośnik do ustawienia nowego hasła.
@@ -23,7 +23,7 @@
                 Wypełnij poniższe pola, a my przygotujemy dla ciebie nowe konto w mgnieniu oka.
                 Będziemy Cię prosić tylko o informacje niezbędne do przyspieszenia i ułatwienia procesu zakupu.
             </p>
-            <a href="/admin-menu">
+            <a href="/my-account">
                 <button class="button">LOGOWANIE</button>
             </a>
         </div>

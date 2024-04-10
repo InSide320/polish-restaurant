@@ -27,13 +27,14 @@ if ($data) {
                     <input id="full-name"
                            class="input"
                            type="text"
+                           placeholder="Your Full Name"
                            value="<?= $_SESSION['fullName'] ?? '' ?>" name="full-name">
                 </div>
 
                 <div class="wrap-personal-information">
                     <label for="email">Email:<span style="color: #E01020;">*</span></label>
                     <input id="email" name="email" class="input" type="text" value="<?= $_SESSION['email'] ?? '' ?>"
-                           required>
+                           placeholder="Your Email" required>
                 </div>
 
                 <div class="wrap-personal-information">
@@ -41,6 +42,7 @@ if ($data) {
                     <input id="phone" name="phone" class="input"
                            type="tel"
                            maxlength="13"
+                           placeholder="Your Phone"
                            value="<?= $_SESSION['phone'] ?? '' ?>"
                            required>
                 </div>
@@ -103,7 +105,7 @@ if ($data) {
                     </tr>
                     </tfoot>
                 </table>
-                <button type="submit" class="button" name="send">Send</button>
+                <button type="submit" class="button" name="send" value="order">Send</button>
             </form>
     </section>
     </div>

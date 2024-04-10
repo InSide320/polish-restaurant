@@ -9,7 +9,8 @@ if (isset($data['send'])) {
 
     $orderResult = setOrderToDB(
         $data['full-name'],
-        $data['phone'], $data['email'],
+        $data['phone'],
+        $data['email'],
         $data['total-amount'],
         $_SESSION['user_id'] ?? null
     );
@@ -28,7 +29,16 @@ if (isset($data['send'])) {
         }
 
         $i = 0;
+
+        $orderDetails = "";
+        $totalPriceProduct = 0;
+        $totalPrice = [];
+
         foreach ($productsToOrder as $item) {
+            $totalPriceProduct = $countsToProduct[$i] * $item['price'];
+            $totalPrice [] = $totalPriceProduct;
+            $orderDetails .= "Product: {$item['product_name']} | Quantity: {$countsToProduct[$i]} | Price: {$totalPriceProduct} zł<br>";
+
             $detailsResult = DBHelper::insertOrderDetailsToDB(
                 $orderId,
                 $item['product_id'],
@@ -39,8 +49,35 @@ if (isset($data['send'])) {
         }
 
         if ($detailsResult) {
-            flash("Замовлення успішно сформоване");
+            include_once 'getUrl.php';
+            include_once 'send.php';
+            $sendUrl = url();
             $_SESSION['order'] = null;
+            $sumPrice = array_sum($totalPrice);
+
+            $mail = configureMailer("Zamówienie zostało przesłane do realizacji", "
+            <div class='mail-message'>
+                    <div class='wrap-mail-message'>
+                        <a href=$sendUrl>
+                            <img src=cid:logo width='200px' height='100px' alt='logo'>
+                        </a>
+                        <div class='mail-body'>
+                            <p>Dziękuję za Twoje zamówienie. Szczegóły Twojego zamówienia:</p>
+                            <p>$orderDetails</p>
+                            <p>Całkowita cena: $sumPrice</p>
+                            <p>Aby uzyskać więcej informacji, skontaktuj się z naszym menadżerem.</p>
+                        </div>
+                    </div>
+                </div>
+            ");
+            try {
+                $mail->addAddress($data["email"]);
+                $mail->addEmbeddedImage('./../../assets/img/logo.png', 'logo', 'logo.png');
+                $mail->send();
+            } catch (\PHPMailer\PHPMailer\Exception $e) {
+                flash("Message could not be sent. Mailer Error: {$mail->ErrorInfo}");
+            }
+            flash("Замовлення успішно сформоване");
         } else {
             flash("Помилка при додаванні деталей замовлення.");
         }

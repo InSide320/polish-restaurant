@@ -289,7 +289,7 @@ class DBHelper
     public static function updateProductInfo($description, $methodPreparing, $ingredients, $productId): bool
     {
         // Підготовлений SQL запит з плейсхолдерами
-        $sql = "UPDATE Products
+        $sql = "UPDATE products
             SET description = ?, method_preparing = ?, ingredients = ?
             WHERE product_id = ?";
 
@@ -316,7 +316,7 @@ class DBHelper
     public static function updateProductFlags($isNew, $isPopular, $productId): bool
     {
         // Підготовлений SQL запит з плейсхолдерами
-        $sql = "UPDATE Products
+        $sql = "UPDATE products
             SET is_new = ?, is_popular = ?
             WHERE product_id = ?";
 
@@ -343,7 +343,7 @@ class DBHelper
     public static function updateProductMainDetails($name, $category, $price, $productId): bool
     {
         // Підготовлений SQL запит з плейсхолдерами
-        $sql = "UPDATE Products
+        $sql = "UPDATE products
             SET product_name = ?, category_id = ?, price = ?
             WHERE product_id = ?";
 
@@ -424,7 +424,7 @@ class DBHelper
         $productName = mysqli_real_escape_string(self::connectToDB(), $productName);
         $description = mysqli_real_escape_string(self::connectToDB(), $description);
 
-        $sql = "INSERT INTO Products (
+        $sql = "INSERT INTO products (
                       product_name,
                       category_id,
                       description,
@@ -443,7 +443,7 @@ class DBHelper
     public static function insertOrderToDB($user, $fullName, $phone, $email, $totalAmount): int
     {
         // Підготовлений SQL запит з плейсхолдерами
-        $sql = "INSERT INTO Orders (user_id, full_name_user, phone, email, total_amount) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO orders (user_id, full_name_user, phone, email, total_amount) VALUES (?, ?, ?, ?, ?)";
 
         // Підготовка запиту
         $stmt = self::connectToDB()->prepare($sql);
@@ -472,7 +472,7 @@ class DBHelper
     public static function selectOrderById($orderId): bool|array|null
     {
         // Підготовлений SQL запит з плейсхолдером
-        $sql = "SELECT * FROM Orders WHERE id = ?";
+        $sql = "SELECT * FROM orders WHERE id = ?";
 
         // Підготовка запиту
         $stmt = self::connectToDB()->prepare($sql);
@@ -503,7 +503,7 @@ class DBHelper
     public static function selectAllOrderStatuses(): ?array
     {
         // Підготовлений SQL запит
-        $sql = "SELECT * FROM OrderStatuses";
+        $sql = "SELECT * FROM orderstatuses";
 
         // Виконання запиту і отримання результатів
         $result = mysqli_query(self::connectToDB(), $sql);
@@ -530,7 +530,7 @@ class DBHelper
     public static function selectOrderStatusByName($statusName): bool|array|null
     {
         // Підготовлений SQL запит з плейсхолдером
-        $sql = "SELECT * FROM OrderStatuses WHERE status_name = ?";
+        $sql = "SELECT * FROM orderstatuses WHERE status_name = ?";
 
         // Підготовка запиту
         $stmt = self::connectToDB()->prepare($sql);
@@ -561,7 +561,7 @@ class DBHelper
     public static function updateOrderStatus($orderId, $newStatusId): bool
     {
         // Підготовлений SQL запит з плейсхолдерами
-        $sql = "UPDATE Orders SET order_status_id = ? WHERE id = ?";
+        $sql = "UPDATE orders SET order_status_id = ? WHERE id = ?";
 
         // Підготовка запиту
         $stmt = self::connectToDB()->prepare($sql);
@@ -586,7 +586,7 @@ class DBHelper
     public static function insertOrderDetailsToDB($orderId, $productId, $quantity, $price): bool
     {
         // Підготовлений SQL запит з плейсхолдерами
-        $sql = "INSERT INTO OrderDetails (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO orderdetails (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)";
 
         // Підготовка запиту
         $stmt = self::connectToDB()->prepare($sql);
@@ -610,26 +610,26 @@ class DBHelper
 
     public static function selectOrdersByUserId($userId): array
     {
-        $sql = "SELECT * FROM Orders WHERE user_id = ?";
+        $sql = "SELECT * FROM orders WHERE user_id = ?";
         return self::executeQuery($sql, ["i", $userId]);
     }
 
     public static function selectAllOrders(): array
     {
-        $sql = "SELECT * FROM Orders";
+        $sql = "SELECT * FROM orders";
         return self::executeQuery($sql, []);
     }
 
     public static function selectOrderDetailsById($orderId): array
     {
-        $sql = "SELECT * FROM OrderDetails WHERE order_id = ?";
+        $sql = "SELECT * FROM orderdetails WHERE order_id = ?";
         return self::executeQuery($sql, ["i", $orderId]);
     }
 
     public static function selectOrderStatusById($id): bool|array|null
     {
         // Підготовлений SQL запит з плейсхолдером
-        $sql = "SELECT * FROM OrderStatuses WHERE status_id = ?";
+        $sql = "SELECT * FROM orderstatuses WHERE status_id = ?";
 
         // Підготовка запиту
         $stmt = self::connectToDB()->prepare($sql);
@@ -655,5 +655,52 @@ class DBHelper
         $stmt->close();
 
         return $row;
+    }
+
+    /**
+     * Отримати пагіновану вибірку замовлень з бази даних.
+     *
+     * @param int $offset Зміщення (скільки рядків пропустити)
+     * @param int $limit Кількість замовлень, які потрібно отримати
+     * @return array Замовлення з бази даних
+     */
+    public static function getAllOrdersPagination(int $offset, int $limit): array
+    {
+        $db = self::connectToDB();
+        $stmt = $db->prepare("SELECT * FROM orders LIMIT ?, ?");
+        $stmt->bind_param("ii", $offset, $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $orders = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $orders;
+    }
+
+    public static function getTotalOrdersCount()
+    {
+        $db = self::connectToDB();
+        $result = $db->query("SELECT COUNT(*) AS total FROM orders");
+        $row = $result->fetch_assoc();
+        return $row['total'];
+    }
+
+    public static function getAllOrdersPaginationByCategoryId(int $offset, int $limit, int $statusIdCategory): array
+    {
+        $db = self::connectToDB();
+        $stmt = $db->prepare("SELECT * FROM orders where order_status_id = ? LIMIT ?, ?");
+        $stmt->bind_param("iii", $statusIdCategory, $offset, $limit);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $orders = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $orders;
+    }
+
+    public static function getTotalOrdersCountByCategoryId($statusIdCategory)
+    {
+        $db = self::connectToDB();
+        $result = $db->query("SELECT COUNT(*) AS total FROM orders where order_status_id = $statusIdCategory;");
+        $row = $result->fetch_assoc();
+        return $row['total'];
     }
 }
