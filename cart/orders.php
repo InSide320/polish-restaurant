@@ -31,13 +31,13 @@ include_once './../app/actions/productAction.php';
                                 <div class="wrap-order-price">
                                     <label for="count">count:</label>
                                     <input class="input" id="count" name="count_<?= $i ?>" type="number"
-                                           value="<?php echo $arr[$i]['count']; ?>" min="1" max="10">
+                                           value="<?php echo $arr[$i]['count']; ?>" min="1">
 
                                     <input type="hidden" class="price-product" value="<?= $getProduct['price'] ?>">
 
                                     <span class="price">
                                         <?= number_format($getProduct['price'] * $arr[$i]['count'], 2, '.', '') ?>
-                                        zł
+                                        <span>zł</span>
                                     </span>
                                 </div>
                             </li>

@@ -2,7 +2,11 @@
 
 function setOrderToDB($fullName, $phone, $email, $totalAmount, $user = null): int
 {
-    return DBHelper::insertOrderToDB($user, $fullName, $phone, $email, $totalAmount);
+    $timestamp = new DateTime();
+    $timestamp->modify('+1 hours');
+    $timestampString = $timestamp->format('Y-m-d H:i:s');
+
+    return DBHelper::insertOrderToDB($user, $fullName, $phone, $email, $timestampString, $totalAmount);
 }
 
 function setOrderDetailsToDB($orderId, $productId, $quantity, $price): bool

@@ -440,10 +440,17 @@ class DBHelper
         return $result !== false;
     }
 
-    public static function insertOrderToDB($user, $fullName, $phone, $email, $totalAmount): int
+    public static function insertOrderToDB($user, $fullName, $phone, $email, $orderDate, $totalAmount): int
     {
         // Підготовлений SQL запит з плейсхолдерами
-        $sql = "INSERT INTO orders (user_id, full_name_user, phone, email, total_amount) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO orders (
+                    user_id,
+                    full_name_user,
+                    phone,
+                    email,
+                    order_date,
+                    total_amount
+                    ) VALUES (?, ?, ?, ?, ?, ?)";
 
         // Підготовка запиту
         $stmt = self::connectToDB()->prepare($sql);
@@ -454,7 +461,7 @@ class DBHelper
         }
 
         // Прив'язка параметрів до плейсхолдерів та їх типів
-        $stmt->bind_param("isssd", $user, $fullName, $phone, $email, $totalAmount);
+        $stmt->bind_param("issssd", $user, $fullName, $phone, $email, $orderDate, $totalAmount);
 
         // Виконання запиту
         $stmt->execute();

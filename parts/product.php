@@ -32,7 +32,7 @@ $product = getProductById($idProduct); ?>
             <div><b>Składniki:</b>
 
                 <?php
-                $ingredients = explode(',', $product['ingredients']);
+                $ingredients = !empty($product['ingredients']) ? explode(',', $product['ingredients']) : [];
                 foreach ($ingredients as $ingredient): ?>
                     <ul>
                         <li style="list-style: inside ">

@@ -7,7 +7,7 @@ include_once 'handleErrorMessage.php';
 
 if (isset($data['send'])) {
     $productName = $data['product-name'];
-    $categoryId = $data['id_category'];
+    $categoryId = $data['category-id'];
     $description = $data['description'];
     $price = $data['price'];
     $photoContent = addslashes(file_get_contents($_FILES['photo']['tmp_name']));

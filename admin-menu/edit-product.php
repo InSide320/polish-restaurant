@@ -129,15 +129,18 @@
 
                         <label for="description">Set description:</label>
                         <textarea id="description" name="description">
-                            <?= htmlspecialchars($product['description']) ?>
+                            <?= isset($product['description']) ?
+                                htmlspecialchars($product['description']) : '' ?>
                         </textarea>
                         <label for="method_preparing">Set method preparing:</label>
                         <textarea id="method_preparing" name="method-preparing">
-                            <?= htmlspecialchars($product['method_preparing']) ?>
+                            <?= isset($product['method_preparing']) ?
+                                htmlspecialchars($product['method_preparing']) : '' ?>
                         </textarea>
                         <label for="ingredients">Set ingredients:</label>
                         <textarea id="ingredients" name="ingredients">
-                            <?= htmlspecialchars($product['ingredients']) ?>
+                            <?= isset($product['ingredients']) ?
+                                htmlspecialchars($product['ingredients']) : '' ?>
                         </textarea>
                         <button class="button" name="send" type="submit">Change additional info</button>
 

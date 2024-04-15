@@ -14,6 +14,9 @@ if ($_POST['email'] !== '') {
             $_SESSION['username'] = $fetchArrayQuery['username'];
             $_SESSION['email'] = $fetchArrayQuery['email'];
             $_SESSION['role'] = $fetchArrayQuery['role'];
+            $_SESSION['phone'] = $fetchArrayQuery['phone'];
+            $_SESSION['full-name'] = $fetchArrayQuery['full_name_user'];
+            $_SESSION['fullName'] = $fetchArrayQuery['full_name_user'];
             header('Location: /my-account');
         } else {
             flash('Niepoprawny Hasło');
